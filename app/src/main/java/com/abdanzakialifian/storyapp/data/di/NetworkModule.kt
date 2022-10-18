@@ -17,9 +17,7 @@ import javax.inject.Singleton
 class NetworkModule {
     private fun provideOkHttpClient(): OkHttpClient {
         val loggingInterceptor =
-            if (BuildConfig.DEBUG) HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY) else HttpLoggingInterceptor().setLevel(
-                HttpLoggingInterceptor.Level.NONE
-            )
+            HttpLoggingInterceptor().setLevel(if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE)
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .build()
@@ -29,7 +27,7 @@ class NetworkModule {
     @Singleton
     fun provideApiService(): ApiService {
         val retrofit = Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl("https://story-api.dicoding.dev/v1")
             .client(provideOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
