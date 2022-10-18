@@ -11,4 +11,10 @@
     <string name="register_now">Register now</string>
     <string name="not_a_member">Not a member?</string>
     <string name="invalid_email">Invalid email.</string>
+    <string name="hello">Hello!</string>
+    <string name="signup_to_get_started">Signup to get started</string>
+    <string name="signup">Signup</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="name">Name</string>
+    <string name="name_cannot_be_empty">Name cannot be empty.</string>
 </resources>

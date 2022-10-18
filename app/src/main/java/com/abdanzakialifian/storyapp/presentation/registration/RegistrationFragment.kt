@@ -1,19 +1,26 @@
-package com.abdanzakialifian.storyapp.presentation.login
+package com.abdanzakialifian.storyapp.presentation.registration
 
-import com.abdanzakialifian.storyapp.databinding.FragmentLoginBinding
+import com.abdanzakialifian.storyapp.R
+import com.abdanzakialifian.storyapp.databinding.FragmentRegistrationBinding
 import com.abdanzakialifian.storyapp.presentation.base.BaseVBFragment
 import java.util.regex.Pattern
 
-class LoginFragment : BaseVBFragment<FragmentLoginBinding>() {
-    override fun getViewBinding(): FragmentLoginBinding =
-        FragmentLoginBinding.inflate(layoutInflater)
+class RegistrationFragment : BaseVBFragment<FragmentRegistrationBinding>() {
+    override fun getViewBinding(): FragmentRegistrationBinding =
+        FragmentRegistrationBinding.inflate(layoutInflater)
 
     override fun initView() {
         binding.apply {
             // get edittext from text input layout
+            val name = edtName.editText
             val email = edtEmail.editText
             val password = edtPassword.editText
-            btnSignIn.setOnClickListener {
+            btnSignUp.setOnClickListener {
+                if (name?.text?.isEmpty() == true) {
+                    edtName.isErrorEnabled = true
+                    edtName.error = resources.getString(R.string.name_cannot_be_empty)
+                }
+
                 edtEmail.isErrorEnabled = !isValidateString(email?.text.toString())
                 edtPassword.isErrorEnabled = password?.text?.isEmpty() == true
             }
