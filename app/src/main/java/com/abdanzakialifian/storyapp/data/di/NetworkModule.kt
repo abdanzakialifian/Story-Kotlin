@@ -1,7 +1,7 @@
 package com.abdanzakialifian.storyapp.data.di
 
 import com.abdanzakialifian.storyapp.BuildConfig
-import com.abdanzakialifian.storyapp.data.remote.service.ApiService
+import com.abdanzakialifian.storyapp.data.source.remote.service.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,7 +27,7 @@ class NetworkModule {
     @Singleton
     fun provideApiService(): ApiService {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://story-api.dicoding.dev/v1")
+            .baseUrl("https://story-api.dicoding.dev/v1/")
             .client(provideOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
