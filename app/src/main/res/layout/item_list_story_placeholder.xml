@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="500dp"
     app:cardCornerRadius="10dp"
@@ -16,8 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:transitionName="detail_image"
-            tools:src="@tools:sample/avatars" />
+            android:src="@color/color_opacity"
+            android:transitionName="detail_image" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -40,20 +39,20 @@
 
                 <TextView
                     android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
+                    android:background="@color/color_opacity"
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:transitionName="detail_name"
-                    tools:text="Abdan Zaki Alifian" />
+                    android:transitionName="detail_name" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="4dp"
-                    android:src="@drawable/ic_verified" />
+                    android:src="@color/color_opacity" />
 
             </LinearLayout>
 

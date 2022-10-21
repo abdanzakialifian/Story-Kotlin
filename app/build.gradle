@@ -4,6 +4,7 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -92,4 +93,12 @@ dependencies {
     // lottie library
     def lottie_version = "5.2.0"
     implementation "com.airbnb.android:lottie:$lottie_version"
+
+    // circle image library
+    def circle_image_version = "3.1.0"
+    implementation "de.hdodenhof:circleimageview:$circle_image_version"
+
+    // shimmer loading
+    def shimmer_version = "0.5.0"
+    implementation "com.facebook.shimmer:shimmer:$shimmer_version"
 }

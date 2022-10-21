@@ -10,10 +10,49 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/toolbar"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:layout_centerInParent="true"
+                    android:text="@string/story"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/light_purple"
+                    android:textSize="20sp"
+                    tools:ignore="RelativeOverlap" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_logout"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="7dp"
+                    android:padding="9dp"
+                    android:src="@drawable/ic_logout" />
+
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -21,34 +60,36 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:fontFamily="@font/roboto_bold"
-                    android:gravity="center"
-                    android:text="@string/story"
-                    android:textColor="@color/light_purple"
-                    android:textSize="20sp" />
+                <include layout="@layout/item_list_story_placeholder" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/img_logout"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="7dp"
-                    android:padding="9dp"
-                    android:src="@drawable/ic_logout" />
+                <include layout="@layout/item_list_story_placeholder" />
+
+                <include layout="@layout/item_list_story_placeholder" />
+
+                <include layout="@layout/item_list_story_placeholder" />
+
+                <include layout="@layout/item_list_story_placeholder" />
+
+                <include layout="@layout/item_list_story_placeholder" />
+
+                <include layout="@layout/item_list_story_placeholder" />
+
+                <include layout="@layout/item_list_story_placeholder" />
+
+                <include layout="@layout/item_list_story_placeholder" />
+
+                <include layout="@layout/item_list_story_placeholder" />
 
             </LinearLayout>
 
-        </androidx.appcompat.widget.Toolbar>
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_story"
             android:layout_width="0dp"
+            android:visibility="gone"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -2,11 +2,13 @@ package com.abdanzakialifian.storyapp.presentation.login.view
 
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.abdanzakialifian.storyapp.R
 import com.abdanzakialifian.storyapp.databinding.FragmentLoginBinding
 import com.abdanzakialifian.storyapp.presentation.base.BaseVBFragment
 import com.abdanzakialifian.storyapp.presentation.login.viewmodel.LoginViewModel
@@ -35,6 +37,14 @@ class LoginFragment : BaseVBFragment<FragmentLoginBinding>() {
                 LoginFragmentDirections.actionLoginFragmentToRegistrationFragment()
             findNavController().navigate(actionToRegistrationFragment)
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    activity?.finishAffinity()
+                }
+            })
     }
 
     private fun login() {
@@ -47,6 +57,9 @@ class LoginFragment : BaseVBFragment<FragmentLoginBinding>() {
                     edtEmail.isErrorEnabled = !isValidateString(email.text.toString())
                     edtPassword.isErrorEnabled = password.text?.isEmpty() == true
                 } else {
+                    binding.progressBar.visible()
+                    binding.btnSignIn.text = ""
+                    binding.btnSignIn.isEnabled = false
                     setLogin(email, password)
                 }
             }
@@ -69,11 +82,14 @@ class LoginFragment : BaseVBFragment<FragmentLoginBinding>() {
                     when (it.status) {
                         Status.LOADING -> {
                             binding.progressBar.visible()
+                            binding.btnSignIn.text = ""
+                            binding.btnSignIn.isEnabled = false
                         }
                         Status.SUCCESS -> {
                             binding.progressBar.gone()
-                            Toast.makeText(requireContext(), it.data?.message, Toast.LENGTH_SHORT)
-                                .show()
+                            binding.btnSignIn.text =
+                                requireContext().resources.getString(R.string.sign_in)
+                            binding.btnSignIn.isEnabled = true
                             val token = it.data?.loginResult?.token
                             lifecycleScope.launchWhenStarted {
                                 viewModel.saveToken(token ?: "")
@@ -84,6 +100,9 @@ class LoginFragment : BaseVBFragment<FragmentLoginBinding>() {
                         }
                         Status.ERROR -> {
                             binding.progressBar.gone()
+                            binding.btnSignIn.text =
+                                requireContext().resources.getString(R.string.sign_in)
+                            binding.btnSignIn.isEnabled = true
                             Toast.makeText(requireContext(), it.data?.message, Toast.LENGTH_SHORT)
                                 .show()
                         }

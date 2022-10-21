@@ -18,4 +18,8 @@
     <string name="name">Name</string>
     <string name="name_cannot_be_empty">Name cannot be empty.</string>
     <string name="story">Story</string>
+    <string name="detail_story">Detail Story</string>
+    <string name="are_you_sure_you_want_to_leave">Are you sure you want to leave?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
