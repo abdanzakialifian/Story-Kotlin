@@ -97,7 +97,7 @@
                 android:paddingStart="3dp"
                 android:paddingEnd="6dp"
                 android:text="@string/register_now"
-                android:textColor="@color/blue" />
+                android:textColor="@color/light_purple" />
 
         </LinearLayout>
 

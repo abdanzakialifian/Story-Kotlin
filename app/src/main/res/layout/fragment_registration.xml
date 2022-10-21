@@ -111,7 +111,7 @@
                 android:paddingStart="3dp"
                 android:paddingEnd="6dp"
                 android:text="@string/sign_in"
-                android:textColor="@color/blue" />
+                android:textColor="@color/light_purple" />
 
         </LinearLayout>
 
