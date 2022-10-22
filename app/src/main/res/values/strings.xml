@@ -22,4 +22,7 @@
     <string name="are_you_sure_you_want_to_leave">Are you sure you want to leave?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="please_wait">Please wait</string>
+    <string name="success_registration">Success Registration</string>
+    <string name="ok">OK</string>
 </resources>

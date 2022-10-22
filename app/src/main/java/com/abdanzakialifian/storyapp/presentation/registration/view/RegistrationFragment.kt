@@ -1,7 +1,9 @@
 package com.abdanzakialifian.storyapp.presentation.registration.view
 
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -50,6 +52,9 @@ class RegistrationFragment : BaseVBFragment<FragmentRegistrationBinding>() {
                     edtEmail.isErrorEnabled = !isValidateString(email.text.toString())
                     edtPassword.isErrorEnabled = password.text?.isEmpty() == true
                 } else {
+                    binding.layoutLoading.visible()
+                    binding.btnSignUp.text = ""
+                    binding.btnSignUp.isEnabled = false
                     setRegistrationUser(name, email, password)
                 }
             }
@@ -57,14 +62,13 @@ class RegistrationFragment : BaseVBFragment<FragmentRegistrationBinding>() {
     }
 
     private fun setRegistrationUser(name: EditText?, email: EditText?, password: EditText?) {
-        val jsonObject = JSONObject()
-        jsonObject.put(NAME, name?.text?.toString())
-        jsonObject.put(EMAIL, email?.text?.toString()?.trim())
-        jsonObject.put(PASSWORD, password?.text?.toString()?.trim())
+        val jsonObject = JSONObject().apply {
+            put(NAME, name?.text?.toString())
+            put(EMAIL, email?.text?.toString()?.trim())
+            put(PASSWORD, password?.text?.toString()?.trim())
+        }.toString()
 
-        val jsonObjectToString = jsonObject.toString()
-        val requestBody =
-            jsonObjectToString.toRequestBody("application/json".toMediaTypeOrNull())
+        val requestBody = jsonObject.toRequestBody("application/json".toMediaTypeOrNull())
 
         lifecycleScope.launchWhenStarted {
             viewModel.registrationUser(requestBody)
@@ -73,18 +77,22 @@ class RegistrationFragment : BaseVBFragment<FragmentRegistrationBinding>() {
                 .collect {
                     when (it.status) {
                         Status.LOADING -> {
-                            binding.progressBar.visible()
+                            binding.layoutLoading.visible()
+                            binding.btnSignUp.text = ""
+                            binding.btnSignUp.isEnabled = false
                         }
                         Status.SUCCESS -> {
-                            binding.progressBar.gone()
-                            Toast.makeText(
-                                requireContext(),
-                                it.data?.message,
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            binding.layoutLoading.gone()
+                            binding.btnSignUp.text =
+                                requireContext().resources.getString(R.string.signup)
+                            binding.btnSignUp.isEnabled = true
+                            setAlertDialog()
                         }
                         Status.ERROR -> {
-                            binding.progressBar.gone()
+                            binding.layoutLoading.gone()
+                            binding.btnSignUp.text =
+                                requireContext().resources.getString(R.string.signup)
+                            binding.btnSignUp.isEnabled = true
                             Toast.makeText(
                                 requireContext(),
                                 it.data?.message,
@@ -94,6 +102,22 @@ class RegistrationFragment : BaseVBFragment<FragmentRegistrationBinding>() {
                     }
                 }
         }
+    }
+
+    private fun setAlertDialog() {
+        val builder = AlertDialog.Builder(requireContext()).create()
+        builder.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        val view = layoutInflater.inflate(R.layout.custom_alert_dialog_success_registration, null)
+        val btnOk = view.findViewById<Button>(R.id.btn_ok)
+        builder.setView(view)
+        builder.setCanceledOnTouchOutside(false)
+        btnOk.setOnClickListener {
+            val actionToLoginFragment =
+                RegistrationFragmentDirections.actionRegistrationFragmentToLoginFragment()
+            findNavController().navigate(actionToLoginFragment)
+            builder.dismiss()
+        }
+        builder.show()
     }
 
     private fun isValidateString(str: String): Boolean =

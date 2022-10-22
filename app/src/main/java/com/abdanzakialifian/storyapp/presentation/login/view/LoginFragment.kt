@@ -38,6 +38,7 @@ class LoginFragment : BaseVBFragment<FragmentLoginBinding>() {
             findNavController().navigate(actionToRegistrationFragment)
         }
 
+        // handle physical back pressed
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
@@ -57,7 +58,7 @@ class LoginFragment : BaseVBFragment<FragmentLoginBinding>() {
                     edtEmail.isErrorEnabled = !isValidateString(email.text.toString())
                     edtPassword.isErrorEnabled = password.text?.isEmpty() == true
                 } else {
-                    binding.progressBar.visible()
+                    binding.layoutLoading.visible()
                     binding.btnSignIn.text = ""
                     binding.btnSignIn.isEnabled = false
                     setLogin(email, password)
@@ -67,12 +68,12 @@ class LoginFragment : BaseVBFragment<FragmentLoginBinding>() {
     }
 
     private fun setLogin(email: EditText?, password: EditText?) {
-        val jsonObject = JSONObject()
-        jsonObject.put(EMAIL, email?.text?.toString()?.trim())
-        jsonObject.put(PASSWORD, password?.text?.toString()?.trim())
+        val jsonObject = JSONObject().apply {
+            put(EMAIL, email?.text?.toString()?.trim())
+            put(PASSWORD, password?.text?.toString()?.trim())
+        }.toString()
 
-        val jsonObjectToString = jsonObject.toString()
-        val requestBody = jsonObjectToString.toRequestBody("application/json".toMediaTypeOrNull())
+        val requestBody = jsonObject.toRequestBody("application/json".toMediaTypeOrNull())
 
         lifecycleScope.launchWhenStarted {
             viewModel.loginUser(requestBody)
@@ -81,12 +82,12 @@ class LoginFragment : BaseVBFragment<FragmentLoginBinding>() {
                 .collect {
                     when (it.status) {
                         Status.LOADING -> {
-                            binding.progressBar.visible()
+                            binding.layoutLoading.visible()
                             binding.btnSignIn.text = ""
                             binding.btnSignIn.isEnabled = false
                         }
                         Status.SUCCESS -> {
-                            binding.progressBar.gone()
+                            binding.layoutLoading.gone()
                             binding.btnSignIn.text =
                                 requireContext().resources.getString(R.string.sign_in)
                             binding.btnSignIn.isEnabled = true
@@ -99,7 +100,7 @@ class LoginFragment : BaseVBFragment<FragmentLoginBinding>() {
                             findNavController().navigate(actionToHomeFragment)
                         }
                         Status.ERROR -> {
-                            binding.progressBar.gone()
+                            binding.layoutLoading.gone()
                             binding.btnSignIn.text =
                                 requireContext().resources.getString(R.string.sign_in)
                             binding.btnSignIn.isEnabled = true

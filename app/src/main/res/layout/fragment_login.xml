@@ -7,8 +7,8 @@
     tools:context=".presentation.login.view.LoginFragment">
 
     <LinearLayout
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
         tools:ignore="UselessParent">
@@ -58,11 +58,11 @@
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="32dp">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_sign_in"
@@ -73,24 +73,35 @@
                 android:text="@string/sign_in"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="14sp" />
 
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:elevation="5dp"
-                android:visibility="gone"
-                android:indeterminateTint="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/btn_sign_in"
-                app:layout_constraintEnd_toEndOf="@id/btn_sign_in"
-                app:layout_constraintStart_toStartOf="@id/btn_sign_in"
-                app:layout_constraintTop_toTopOf="@id/btn_sign_in" />
+            <LinearLayout
+                android:id="@+id/layout_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:elevation="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <ProgressBar
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:indeterminateTint="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="@string/please_wait"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"

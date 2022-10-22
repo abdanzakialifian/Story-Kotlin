@@ -23,7 +23,6 @@ import com.abdanzakialifian.storyapp.utils.gone
 import com.abdanzakialifian.storyapp.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
@@ -54,6 +53,15 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
                 findNavController().navigate(actionToDetailFragment, extras)
             }
         })
+
+        // handle physical back pressed
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    activity?.finishAffinity()
+                }
+            })
     }
 
     private fun setUserSession() {
@@ -109,7 +117,7 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
     private fun setAlertDialog() {
         val builder = AlertDialog.Builder(requireContext()).create()
         builder.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        val view = layoutInflater.inflate(R.layout.custom_alert_dialog, null)
+        val view = layoutInflater.inflate(R.layout.custom_alert_dialog_logout, null)
         val btnYes = view.findViewById<Button>(R.id.btn_yes)
         val btnNo = view.findViewById<Button>(R.id.btn_no)
         builder.setView(view)
