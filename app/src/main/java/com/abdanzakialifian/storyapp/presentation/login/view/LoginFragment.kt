@@ -93,8 +93,9 @@ class LoginFragment : BaseVBFragment<FragmentLoginBinding>() {
                                 requireContext().resources.getString(R.string.sign_in)
                             binding.btnSignIn.isEnabled = true
                             val token = it.data?.loginResult?.token
+                            val name = it.data?.loginResult?.name
                             lifecycleScope.launchWhenStarted {
-                                viewModel.saveToken(token ?: "")
+                                viewModel.saveUserData(token ?: "", name ?: "")
                             }
                             val actionToHomeFragment =
                                 LoginFragmentDirections.actionLoginFragmentToHomeFragment()

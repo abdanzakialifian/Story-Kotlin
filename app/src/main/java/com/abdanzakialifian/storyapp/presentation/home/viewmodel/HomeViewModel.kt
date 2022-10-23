@@ -51,13 +51,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    // delete datastore
-    fun deleteDataStore() {
-        viewModelScope.launch {
-            storyDataStore.deleteDataStore()
-        }
-    }
-
     // save user session in datastore
     fun saveUserSession(isLogin: Boolean) {
         viewModelScope.launch {

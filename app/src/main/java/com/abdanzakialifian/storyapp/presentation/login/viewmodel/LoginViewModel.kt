@@ -36,9 +36,9 @@ class LoginViewModel @Inject constructor(
     }
 
     // save token in datastore
-    fun saveToken(token: String) {
+    fun saveUserData(token: String, name: String) {
         viewModelScope.launch {
-            storyDataStore.saveToken(token)
+            storyDataStore.saveUserData(token, name)
         }
     }
 }

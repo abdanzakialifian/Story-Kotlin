@@ -36,8 +36,10 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>(), SwipeRefreshLayout.O
     override fun initView() {
         setListStory()
         setUserSession()
-        binding.imgLogout.setOnClickListener {
-            setAlertDialog()
+        binding.imgProfile.setOnClickListener {
+            val actionToProfileFragment =
+                HomeFragmentDirections.actionHomeFragmentToProfileFragment()
+            findNavController().navigate(actionToProfileFragment)
         }
 
         binding.fabAdd.setOnClickListener {
@@ -118,28 +120,6 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>(), SwipeRefreshLayout.O
                     }
             }
         }
-    }
-
-    private fun setAlertDialog() {
-        val builder = AlertDialog.Builder(requireContext()).create()
-        builder.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        val view = layoutInflater.inflate(R.layout.custom_alert_dialog_logout, null)
-        val btnYes = view.findViewById<Button>(R.id.btn_yes)
-        val btnNo = view.findViewById<Button>(R.id.btn_no)
-        builder.setView(view)
-        builder.setCanceledOnTouchOutside(false)
-        btnNo.setOnClickListener {
-            builder.dismiss()
-        }
-        btnYes.setOnClickListener {
-            val actionToLoginFragment = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
-            findNavController().navigate(actionToLoginFragment)
-            lifecycleScope.launchWhenStarted {
-                viewModel.deleteDataStore()
-            }
-            builder.dismiss()
-        }
-        builder.show()
     }
 
     override fun onRefresh() {

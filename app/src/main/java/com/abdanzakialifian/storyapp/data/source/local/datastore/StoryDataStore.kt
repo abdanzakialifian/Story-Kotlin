@@ -18,15 +18,22 @@ class StoryDataStore @Inject constructor(@ApplicationContext context: Context) {
 
     private val storyDataStore = context.datastore
 
-    suspend fun saveToken(token: String) {
+    suspend fun saveUserData(token: String, name: String) {
         storyDataStore.edit { preference ->
             preference[AUTHORIZATION_KEY] = token
+            preference[USER_NAME] = name
         }
     }
 
     fun getToken(): Flow<String> {
         return storyDataStore.data.map { preference ->
             preference[AUTHORIZATION_KEY] ?: ""
+        }
+    }
+
+    fun getName(): Flow<String> {
+        return storyDataStore.data.map { preference ->
+            preference[USER_NAME] ?: ""
         }
     }
 
@@ -50,6 +57,7 @@ class StoryDataStore @Inject constructor(@ApplicationContext context: Context) {
 
     companion object {
         private val AUTHORIZATION_KEY = stringPreferencesKey("user_token")
+        private val USER_NAME = stringPreferencesKey("user_name")
         private val USER_SESSION = booleanPreferencesKey("user_session")
     }
 }
