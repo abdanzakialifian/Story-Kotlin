@@ -6,10 +6,12 @@ import com.abdanzakialifian.storyapp.data.source.remote.source.RemoteDataSource
 import com.abdanzakialifian.storyapp.domain.interfaces.StoryRepository
 import com.abdanzakialifian.storyapp.domain.model.ListStory
 import com.abdanzakialifian.storyapp.domain.model.Login
+import com.abdanzakialifian.storyapp.domain.model.NewStory
 import com.abdanzakialifian.storyapp.domain.model.Registration
 import com.abdanzakialifian.storyapp.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -35,4 +37,12 @@ class StoryRepositoryImpl @Inject constructor(private val remoteDataSource: Remo
                 DataMapper.mapListStoryResponseToListStory(data)
             }
         }
+
+    override fun createNewStory(
+        token: String,
+        file: MultipartBody.Part,
+        description: RequestBody
+    ): Flow<NewStory> = remoteDataSource.createNewStory(token, file, description).map { data ->
+        DataMapper.mapNewStoryResponseToNewStory(data)
+    }
 }

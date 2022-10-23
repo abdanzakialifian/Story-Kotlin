@@ -95,7 +95,7 @@ class RegistrationFragment : BaseVBFragment<FragmentRegistrationBinding>() {
                             binding.btnSignUp.isEnabled = true
                             Toast.makeText(
                                 requireContext(),
-                                it.data?.message,
+                                resources.getString(R.string.failed_registration),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }

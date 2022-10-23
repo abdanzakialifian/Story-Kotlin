@@ -2,11 +2,9 @@ package com.abdanzakialifian.storyapp.utils
 
 import com.abdanzakialifian.storyapp.data.source.remote.model.ListStoryResponse
 import com.abdanzakialifian.storyapp.data.source.remote.model.LoginResponse
+import com.abdanzakialifian.storyapp.data.source.remote.model.NewStoryResponse
 import com.abdanzakialifian.storyapp.data.source.remote.model.RegistrationResponse
-import com.abdanzakialifian.storyapp.domain.model.ListStory
-import com.abdanzakialifian.storyapp.domain.model.Login
-import com.abdanzakialifian.storyapp.domain.model.LoginResult
-import com.abdanzakialifian.storyapp.domain.model.Registration
+import com.abdanzakialifian.storyapp.domain.model.*
 
 object DataMapper {
     fun mapRegistrationResponseToRegistration(input: RegistrationResponse): Registration =
@@ -36,5 +34,10 @@ object DataMapper {
         lon = input.lon,
         id = input.id,
         lat = input.lat
+    )
+
+    fun mapNewStoryResponseToNewStory(input: NewStoryResponse): NewStory = NewStory(
+        error = input.error,
+        message = input.message
     )
 }

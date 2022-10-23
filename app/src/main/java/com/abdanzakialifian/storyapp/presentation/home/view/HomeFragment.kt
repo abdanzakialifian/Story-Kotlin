@@ -3,7 +3,6 @@ package com.abdanzakialifian.storyapp.presentation.home.view
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
@@ -12,6 +11,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.abdanzakialifian.storyapp.R
 import com.abdanzakialifian.storyapp.databinding.FragmentHomeBinding
 import com.abdanzakialifian.storyapp.domain.model.ListStory
@@ -25,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
+class HomeFragment : BaseVBFragment<FragmentHomeBinding>(), SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
     lateinit var homePagingAdapter: HomePagingAdapter
@@ -38,6 +38,11 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
         setUserSession()
         binding.imgLogout.setOnClickListener {
             setAlertDialog()
+        }
+
+        binding.fabAdd.setOnClickListener {
+            val actionToCameraFragment = HomeFragmentDirections.actionHomeFragmentToCameraFragment()
+            findNavController().navigate(actionToCameraFragment)
         }
 
         // give item click
@@ -62,6 +67,8 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
                     activity?.finishAffinity()
                 }
             })
+
+        binding.swipeRefresh.setOnRefreshListener(this)
     }
 
     private fun setUserSession() {
@@ -72,8 +79,6 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
 
     private fun setListStory() {
         binding.apply {
-            rvStory.adapter = homePagingAdapter
-            rvStory.setHasFixedSize(true)
             lifecycleScope.launchWhenStarted {
                 viewModel.uiStateGetAllStories
                     .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
@@ -89,24 +94,25 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
                             Status.SUCCESS -> {
                                 binding.apply {
                                     shimmerLayout.gone()
-                                    rvStory.visible()
                                     shimmerLayout.stopShimmer()
-                                }
-                                it.data?.let { pagingData ->
-                                    homePagingAdapter.submitData(lifecycle, pagingData)
+                                    if (it.data != null) {
+                                        rvStory.adapter = homePagingAdapter
+                                        rvStory.setHasFixedSize(true)
+                                        rvStory.visible()
+                                        homePagingAdapter.submitData(lifecycle, it.data)
+                                    } else {
+                                        rvStory.gone()
+                                        emptyAnimation.visible()
+                                    }
                                 }
                             }
                             Status.ERROR -> {
                                 binding.apply {
                                     shimmerLayout.gone()
-                                    rvStory.visible()
                                     shimmerLayout.stopShimmer()
+                                    rvStory.gone()
+                                    errorAnimation.visible()
                                 }
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Error : ${it.message}",
-                                    Toast.LENGTH_SHORT
-                                ).show()
                             }
                         }
                     }
@@ -134,5 +140,12 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>() {
             builder.dismiss()
         }
         builder.show()
+    }
+
+    override fun onRefresh() {
+        binding.apply {
+            swipeRefresh.isRefreshing = false
+            setListStory()
+        }
     }
 }

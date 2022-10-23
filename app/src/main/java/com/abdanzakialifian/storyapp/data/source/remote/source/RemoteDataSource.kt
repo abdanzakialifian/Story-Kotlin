@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.abdanzakialifian.storyapp.data.source.remote.model.ListStoryResponse
 import com.abdanzakialifian.storyapp.data.source.remote.model.LoginResponse
+import com.abdanzakialifian.storyapp.data.source.remote.model.NewStoryResponse
 import com.abdanzakialifian.storyapp.data.source.remote.model.RegistrationResponse
 import com.abdanzakialifian.storyapp.data.source.remote.paging.StoriesPagingSource
 import com.abdanzakialifian.storyapp.data.source.remote.service.ApiService
@@ -12,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -44,4 +46,14 @@ class RemoteDataSource @Inject constructor(
             }
         ).flow.flowOn(Dispatchers.IO)
     }
+
+    fun createNewStory(
+        token: String,
+        file: MultipartBody.Part,
+        description: RequestBody
+    ): Flow<NewStoryResponse> =
+        flow {
+            val response = apiService.createNewStory(token, file, description)
+            emit(response)
+        }.flowOn(Dispatchers.IO)
 }

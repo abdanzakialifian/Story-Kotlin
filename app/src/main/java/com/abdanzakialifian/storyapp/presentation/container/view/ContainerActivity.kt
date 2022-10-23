@@ -1,4 +1,4 @@
-package com.abdanzakialifian.storyapp.presentation.container
+package com.abdanzakialifian.storyapp.presentation.container.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -48,55 +48,98 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_layout"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/toolbar" >
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <include layout="@layout/item_list_story_placeholder" />
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <include layout="@layout/item_list_story_placeholder" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                <include layout="@layout/item_list_story_placeholder" />
+                        <include layout="@layout/item_list_story_placeholder" />
 
-                <include layout="@layout/item_list_story_placeholder" />
+                        <include layout="@layout/item_list_story_placeholder" />
 
-                <include layout="@layout/item_list_story_placeholder" />
+                        <include layout="@layout/item_list_story_placeholder" />
 
-                <include layout="@layout/item_list_story_placeholder" />
+                        <include layout="@layout/item_list_story_placeholder" />
 
-                <include layout="@layout/item_list_story_placeholder" />
+                        <include layout="@layout/item_list_story_placeholder" />
 
-                <include layout="@layout/item_list_story_placeholder" />
+                        <include layout="@layout/item_list_story_placeholder" />
 
-                <include layout="@layout/item_list_story_placeholder" />
+                        <include layout="@layout/item_list_story_placeholder" />
 
-                <include layout="@layout/item_list_story_placeholder" />
+                        <include layout="@layout/item_list_story_placeholder" />
 
-            </LinearLayout>
+                        <include layout="@layout/item_list_story_placeholder" />
 
-        </com.facebook.shimmer.ShimmerFrameLayout>
+                        <include layout="@layout/item_list_story_placeholder" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_story"
-            android:layout_width="0dp"
-            android:visibility="gone"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            tools:listitem="@layout/item_list_story" />
+                    </LinearLayout>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_story"
+                    android:layout_width="0dp"
+                    android:visibility="gone"
+                    android:layout_height="0dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/item_list_story" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/empty_animation"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/empty_animation" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/error_animation"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/error_animation" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

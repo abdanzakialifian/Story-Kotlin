@@ -21,6 +21,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.util.regex.Pattern
 
+
 @AndroidEntryPoint
 class LoginFragment : BaseVBFragment<FragmentLoginBinding>() {
 
@@ -104,7 +105,11 @@ class LoginFragment : BaseVBFragment<FragmentLoginBinding>() {
                             binding.btnSignIn.text =
                                 requireContext().resources.getString(R.string.sign_in)
                             binding.btnSignIn.isEnabled = true
-                            Toast.makeText(requireContext(), it.data?.message, Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                requireContext(),
+                                resources.getString(R.string.failed_login),
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         }
                     }
