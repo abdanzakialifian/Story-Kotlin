@@ -16,8 +16,12 @@ class ProfileViewModel @Inject constructor(private val storyDataStore: StoryData
     private val _userName = MutableStateFlow(toString())
     val userName: StateFlow<String> = _userName
 
+    private val _languageCode = MutableStateFlow(toString())
+    val languageCode: StateFlow<String> = _languageCode
+
     init {
         getDataStoreName()
+        getLanguageCode()
     }
 
     // delete datastore
@@ -32,6 +36,21 @@ class ProfileViewModel @Inject constructor(private val storyDataStore: StoryData
             storyDataStore.getName()
                 .collect { data ->
                     _userName.value = data
+                }
+        }
+    }
+
+    fun saveLanguageCode(languageCode: String) {
+        viewModelScope.launch {
+            storyDataStore.saveLanguageCode(languageCode)
+        }
+    }
+
+    private fun getLanguageCode() {
+        viewModelScope.launch {
+            storyDataStore.getLanguageCode()
+                .collect { data ->
+                    _languageCode.value = data
                 }
         }
     }

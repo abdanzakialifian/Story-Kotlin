@@ -11,4 +11,6 @@ class SplashScreenViewModel @Inject constructor(private val storyDataStore: Stor
     ViewModel() {
 
     fun getUserSession(): Flow<Boolean> = storyDataStore.getUserSession()
+
+    fun getLanguageCode(): Flow<String> = storyDataStore.getLanguageCode()
 }

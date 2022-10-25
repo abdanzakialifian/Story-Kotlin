@@ -1,10 +1,8 @@
 package com.abdanzakialifian.storyapp.presentation.home.view
 
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -12,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.abdanzakialifian.storyapp.R
 import com.abdanzakialifian.storyapp.databinding.FragmentHomeBinding
 import com.abdanzakialifian.storyapp.domain.model.ListStory
 import com.abdanzakialifian.storyapp.presentation.base.BaseVBFragment

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">StoryApp</string>
     <string name="error_password">Password cannot be less than 6.</string>
@@ -39,7 +40,4 @@
     <string name="profile">Profile</string>
     <string name="id">ID</string>
     <string name="en">EN</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">This is an app widget description</string>
 </resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StoryApp</string>
+    <string name="error_password">Password tidak boleh kurang dari 6.</string>
+    <string name="password">Password</string>
+    <string name="hello_again">Selamat Datang Kembali!</string>
+    <string name="welcome_back">Selamat datang kembali\nKamu yang dirindukan</string>
+    <string name="email">Email</string>
+    <string name="sign_in">Masuk</string>
+    <string name="register_now">Daftar sekarang</string>
+    <string name="not_a_member">Belum punya akun?</string>
+    <string name="invalid_email">Email tidak valid.</string>
+    <string name="hello">Halo!</string>
+    <string name="signup_to_get_started">Daftar untuk memulai aplikasi</string>
+    <string name="signup">Daftar</string>
+    <string name="already_have_an_account">Sudah punya akun?</string>
+    <string name="name">Nama</string>
+    <string name="name_cannot_be_empty">Nama tidak boleh kosong.</string>
+    <string name="story">Cerita</string>
+    <string name="detail_story">Detail Cerita</string>
+    <string name="are_you_sure_you_want_to_leave">Apakah Anda yakin ingin keluar?</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="please_wait">Tunggu sebentar</string>
+    <string name="success_registration">Berhasil mendaftar</string>
+    <string name="ok">OK</string>
+    <string name="camera_fail">Gagal memunculkan kamera.</string>
+    <string name="camera_not_allowed">Kamera tidak diizinkan.</string>
+    <string name="failed_take_pictures">Gagal mengambil gambar.</string>
+    <string name="next">Lanjut</string>
+    <string name="back">Kembali</string>
+    <string name="description">Deskripsi…</string>
+    <string name="upload">Mengunggah</string>
+    <string name="success_uploading">Berhasil mengunggah</string>
+    <string name="uploading">Mengunggah</string>
+    <string name="failed_upload">Gagal mengunggah</string>
+    <string name="failed_login">Gagal login</string>
+    <string name="failed_registration">Gagal mendaftar</string>
+    <string name="logout">Keluar</string>
+    <string name="profile">Profil</string>
+    <string name="id">ID</string>
+    <string name="en">EN</string>
+</resources>

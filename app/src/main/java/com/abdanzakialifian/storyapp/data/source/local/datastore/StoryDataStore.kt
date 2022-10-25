@@ -49,6 +49,18 @@ class StoryDataStore @Inject constructor(@ApplicationContext context: Context) {
         }
     }
 
+    suspend fun saveLanguageCode(languageCode: String) {
+        storyDataStore.edit { preference ->
+            preference[LANGUAGE_CODE] = languageCode
+        }
+    }
+
+    fun getLanguageCode(): Flow<String> {
+        return storyDataStore.data.map { preference ->
+            preference[LANGUAGE_CODE] ?: ""
+        }
+    }
+
     suspend fun deleteDataStore() {
         storyDataStore.edit { preference ->
             preference.clear()
@@ -59,5 +71,6 @@ class StoryDataStore @Inject constructor(@ApplicationContext context: Context) {
         private val AUTHORIZATION_KEY = stringPreferencesKey("user_token")
         private val USER_NAME = stringPreferencesKey("user_name")
         private val USER_SESSION = booleanPreferencesKey("user_session")
+        private val LANGUAGE_CODE = stringPreferencesKey("language_code")
     }
 }

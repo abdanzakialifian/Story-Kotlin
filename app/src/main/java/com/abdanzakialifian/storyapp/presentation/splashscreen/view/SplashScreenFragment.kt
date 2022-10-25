@@ -12,6 +12,7 @@ import com.abdanzakialifian.storyapp.databinding.FragmentSplashScreenBinding
 import com.abdanzakialifian.storyapp.presentation.base.BaseVBFragment
 import com.abdanzakialifian.storyapp.presentation.splashscreen.viewmodel.SplashScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
@@ -40,6 +41,23 @@ class SplashScreenFragment : BaseVBFragment<FragmentSplashScreenBinding>() {
                     }
             }
         }, DELAY_SPLASH_SCREEN)
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.getLanguageCode()
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { data ->
+                    setLocaleLanguage(data)
+                }
+        }
+    }
+
+    private fun setLocaleLanguage(languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        val resource = requireActivity().resources
+        val config = resource.configuration
+        config.setLocale(locale)
+        resource.updateConfiguration(config, resource.displayMetrics)
     }
 
     companion object {
