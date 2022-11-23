@@ -31,7 +31,7 @@ class CameraFragment : BaseVBFragment<FragmentCameraBinding>() {
     override fun getViewBinding(): FragmentCameraBinding =
         FragmentCameraBinding.inflate(layoutInflater)
 
-    override fun initView() {
+    override fun setupView() {
         requestPermissionCamera()
         switchCamera()
         binding.apply {

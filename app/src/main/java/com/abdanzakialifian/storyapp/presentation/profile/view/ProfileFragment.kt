@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.abdanzakialifian.storyapp.R
 import com.abdanzakialifian.storyapp.databinding.FragmentProfileBinding
 import com.abdanzakialifian.storyapp.presentation.base.BaseVBFragment
-import com.abdanzakialifian.storyapp.presentation.home.view.HomeFragmentDirections
 import com.abdanzakialifian.storyapp.presentation.profile.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -27,7 +26,7 @@ class ProfileFragment : BaseVBFragment<FragmentProfileBinding>() {
     override fun getViewBinding(): FragmentProfileBinding =
         FragmentProfileBinding.inflate(layoutInflater)
 
-    override fun initView() {
+    override fun setupView() {
 
         lifecycleScope.launchWhenStarted {
             viewModel.languageCode
@@ -144,7 +143,8 @@ class ProfileFragment : BaseVBFragment<FragmentProfileBinding>() {
             builder.dismiss()
         }
         btnYes.setOnClickListener {
-            val actionToLoginFragment = HomeFragmentDirections.actionHomeFragmentToLoginFragment()
+            val actionToLoginFragment =
+                ProfileFragmentDirections.actionProfileFragmentToLoginFragment()
             findNavController().navigate(actionToLoginFragment)
             lifecycleScope.launchWhenStarted {
                 viewModel.deleteDataStore()

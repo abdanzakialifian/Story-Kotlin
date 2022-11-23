@@ -6,10 +6,11 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.abdanzakialifian.storyapp.data.source.local.datastore.StoryDataStore
 import com.abdanzakialifian.storyapp.domain.interfaces.StoryUseCase
-import com.abdanzakialifian.storyapp.domain.model.ListStory
+import com.abdanzakialifian.storyapp.domain.model.Stories
 import com.abdanzakialifian.storyapp.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,8 +22,8 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _uiStateGetAllStories =
-        MutableStateFlow<Result<PagingData<ListStory>>>(Result.loading())
-    val uiStateGetAllStories get() = _uiStateGetAllStories
+        MutableStateFlow<Result<PagingData<Stories>>>(Result.loading())
+    val uiStateGetAllStories: StateFlow<Result<PagingData<Stories>>> = _uiStateGetAllStories
 
     init {
         getToken()

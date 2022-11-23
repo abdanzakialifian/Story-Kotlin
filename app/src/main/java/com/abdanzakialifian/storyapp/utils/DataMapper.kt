@@ -1,9 +1,6 @@
 package com.abdanzakialifian.storyapp.utils
 
-import com.abdanzakialifian.storyapp.data.source.remote.model.ListStoryResponse
-import com.abdanzakialifian.storyapp.data.source.remote.model.LoginResponse
-import com.abdanzakialifian.storyapp.data.source.remote.model.NewStoryResponse
-import com.abdanzakialifian.storyapp.data.source.remote.model.RegistrationResponse
+import com.abdanzakialifian.storyapp.data.source.remote.model.*
 import com.abdanzakialifian.storyapp.domain.model.*
 
 object DataMapper {
@@ -26,7 +23,7 @@ object DataMapper {
         )
     }
 
-    fun mapListStoryResponseToListStory(input: ListStoryResponse): ListStory = ListStory(
+    fun mapListStoryResponseToListStory(input: ListStoryResponse): Stories = Stories(
         photoUrl = input.photoUrl,
         createdAt = input.createdAt,
         name = input.name,
@@ -40,4 +37,21 @@ object DataMapper {
         error = input.error,
         message = input.message
     )
+
+    fun mapStoryResponseToListStory(input: StoriesResponse): ArrayList<Stories> {
+        val listStories = ArrayList<Stories>()
+        input.listStory?.forEach { data ->
+            val listStory = Stories(
+                photoUrl = data.photoUrl,
+                createdAt = data.createdAt,
+                name = data.name,
+                description = data.description,
+                lon = data.lon,
+                id = data.id,
+                lat = data.lat
+            )
+            listStories.add(listStory)
+        }
+        return listStories
+    }
 }

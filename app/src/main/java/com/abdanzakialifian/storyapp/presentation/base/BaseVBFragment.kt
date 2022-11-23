@@ -23,12 +23,12 @@ abstract class BaseVBFragment<VB : ViewBinding> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initView()
+        setupView()
     }
 
     abstract fun getViewBinding(): VB
 
-    abstract fun initView()
+    abstract fun setupView()
 
     override fun onDestroy() {
         super.onDestroy()

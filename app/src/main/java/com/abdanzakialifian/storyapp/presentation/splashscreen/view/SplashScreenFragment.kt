@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @SuppressLint("CustomSplashScreen")
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class SplashScreenFragment : BaseVBFragment<FragmentSplashScreenBinding>() {
 
@@ -23,7 +24,7 @@ class SplashScreenFragment : BaseVBFragment<FragmentSplashScreenBinding>() {
     override fun getViewBinding(): FragmentSplashScreenBinding =
         FragmentSplashScreenBinding.inflate(layoutInflater)
 
-    override fun initView() {
+    override fun setupView() {
         Handler(Looper.getMainLooper()).postDelayed({
             lifecycleScope.launchWhenStarted {
                 viewModel.getUserSession()

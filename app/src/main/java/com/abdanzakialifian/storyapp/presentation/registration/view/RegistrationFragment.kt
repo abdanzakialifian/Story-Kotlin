@@ -30,7 +30,7 @@ class RegistrationFragment : BaseVBFragment<FragmentRegistrationBinding>() {
     override fun getViewBinding(): FragmentRegistrationBinding =
         FragmentRegistrationBinding.inflate(layoutInflater)
 
-    override fun initView() {
+    override fun setupView() {
         registration()
         binding.tvSignIn.setOnClickListener {
             val actionToLoginFragment =

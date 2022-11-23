@@ -16,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:transitionName="detail_image"
             tools:src="@tools:sample/avatars" />
 
         <FrameLayout
@@ -45,7 +44,6 @@
                     android:fontFamily="@font/roboto_medium"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:transitionName="detail_name"
                     tools:text="Abdan Zaki Alifian" />
 
                 <androidx.appcompat.widget.AppCompatImageView

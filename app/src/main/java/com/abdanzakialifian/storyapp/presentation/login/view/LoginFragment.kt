@@ -21,7 +21,6 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.util.regex.Pattern
 
-
 @AndroidEntryPoint
 class LoginFragment : BaseVBFragment<FragmentLoginBinding>() {
 
@@ -30,7 +29,7 @@ class LoginFragment : BaseVBFragment<FragmentLoginBinding>() {
     override fun getViewBinding(): FragmentLoginBinding =
         FragmentLoginBinding.inflate(layoutInflater)
 
-    override fun initView() {
+    override fun setupView() {
         login()
         // navigate to registration page
         binding.tvRegister.setOnClickListener {

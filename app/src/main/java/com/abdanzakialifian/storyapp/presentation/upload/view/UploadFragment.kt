@@ -31,7 +31,7 @@ class UploadFragment : BaseVBFragment<FragmentUploadBinding>() {
     override fun getViewBinding(): FragmentUploadBinding =
         FragmentUploadBinding.inflate(layoutInflater)
 
-    override fun initView() {
+    override fun setupView() {
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }

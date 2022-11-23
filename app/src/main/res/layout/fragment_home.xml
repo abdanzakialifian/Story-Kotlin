@@ -11,7 +11,8 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/toolbar"
+            android:id="@+id/app_bar"
+            app:elevation="0dp"
             android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/color_background"
@@ -26,13 +27,22 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_bold"
                     android:layout_centerInParent="true"
-                    android:text="@string/story"
                     android:layout_centerVertical="true"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="@string/story"
                     android:textColor="@color/light_purple"
                     android:textSize="20sp"
                     tools:ignore="RelativeOverlap" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_map_marker"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@id/img_profile"
+                    android:padding="9dp"
+                    android:src="@drawable/ic_map_marker" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_profile"
@@ -55,7 +65,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" >
+            app:layout_constraintTop_toBottomOf="@id/app_bar" >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -149,6 +159,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:fabCradleMargin="10dp"
+        app:elevation="0dp"
         android:backgroundTint="@color/white"
         app:fabCradleRoundedCornerRadius="10dp"
         app:fabCradleVerticalOffset="10dp" />

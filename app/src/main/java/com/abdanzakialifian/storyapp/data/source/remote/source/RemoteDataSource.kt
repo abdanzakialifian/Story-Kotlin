@@ -3,10 +3,7 @@ package com.abdanzakialifian.storyapp.data.source.remote.source
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.abdanzakialifian.storyapp.data.source.remote.model.ListStoryResponse
-import com.abdanzakialifian.storyapp.data.source.remote.model.LoginResponse
-import com.abdanzakialifian.storyapp.data.source.remote.model.NewStoryResponse
-import com.abdanzakialifian.storyapp.data.source.remote.model.RegistrationResponse
+import com.abdanzakialifian.storyapp.data.source.remote.model.*
 import com.abdanzakialifian.storyapp.data.source.remote.paging.StoriesPagingSource
 import com.abdanzakialifian.storyapp.data.source.remote.service.ApiService
 import kotlinx.coroutines.Dispatchers
@@ -36,9 +33,9 @@ class RemoteDataSource @Inject constructor(
     fun getAllStories(token: String): Flow<PagingData<ListStoryResponse>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 15,
+                pageSize = 10,
                 enablePlaceholders = true,
-                initialLoadSize = 15,
+                initialLoadSize = 10
             ),
             pagingSourceFactory = {
                 storiesPagingSource.getToken(token)
@@ -56,4 +53,9 @@ class RemoteDataSource @Inject constructor(
             val response = apiService.createNewStory(token, file, description)
             emit(response)
         }.flowOn(Dispatchers.IO)
+
+    fun getLocation(token: String, location: Int): Flow<StoriesResponse> = flow {
+        val response = apiService.getLocation(token, location)
+        emit(response)
+    }.flowOn(Dispatchers.IO)
 }

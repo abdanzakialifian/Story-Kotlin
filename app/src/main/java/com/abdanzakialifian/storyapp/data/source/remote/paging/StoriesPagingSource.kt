@@ -13,35 +13,34 @@ class StoriesPagingSource @Inject constructor(private val apiService: ApiService
 
     private var token: String? = null
 
-    override fun getRefreshKey(state: PagingState<Int, ListStoryResponse>): Int? {
-        return state.anchorPosition?.let { anchorPosition ->
-            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
-                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
-        }
-    }
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ListStoryResponse> {
         return try {
-            val position = params.key ?: 1
+            val position = params.key ?: INITIAL_PAGE
             val response = apiService.getAllStories(token ?: "", position, params.loadSize)
-            val listStoryResponse = response.listStory
-
-            val listStory = ArrayList<ListStoryResponse>()
-            if (listStoryResponse != null) {
-                listStory.addAll(listStoryResponse)
-            }
+            val listStoryResponse = response.listStory as List<ListStoryResponse>
 
             LoadResult.Page(
-                data = listStory,
-                prevKey = if (position == 1) null else position - 1,
-                nextKey = position + 1
+                data = listStoryResponse,
+                prevKey = if (position == INITIAL_PAGE) null else position - 1,
+                nextKey = if (listStoryResponse.isEmpty()) null else position + 1
             )
         } catch (e: Exception) {
             return LoadResult.Error(e)
         }
     }
 
+    override fun getRefreshKey(state: PagingState<Int, ListStoryResponse>): Int? {
+        return state.anchorPosition?.let { anchorPosition ->
+            val anchorPage = state.closestPageToPosition(anchorPosition)
+            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
+        }
+    }
+
     fun getToken(token: String) {
         this.token = token
+    }
+
+    companion object {
+        private const val INITIAL_PAGE = 1
     }
 }

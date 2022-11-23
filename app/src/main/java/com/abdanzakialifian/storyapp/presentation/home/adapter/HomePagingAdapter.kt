@@ -3,17 +3,16 @@ package com.abdanzakialifian.storyapp.presentation.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.abdanzakialifian.storyapp.databinding.ItemListStoryBinding
-import com.abdanzakialifian.storyapp.domain.model.ListStory
+import com.abdanzakialifian.storyapp.domain.model.Stories
 import com.abdanzakialifian.storyapp.utils.loadImageUrl
 import javax.inject.Inject
 
 class HomePagingAdapter @Inject constructor() :
-    PagingDataAdapter<ListStory, HomePagingAdapter.HomePagingViewHolder>(DIFF_CALLBACK) {
+    PagingDataAdapter<Stories, HomePagingAdapter.HomePagingViewHolder>(DIFF_CALLBACK) {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
@@ -23,13 +22,15 @@ class HomePagingAdapter @Inject constructor() :
 
     inner class HomePagingViewHolder(private val binding: ItemListStoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ListStory?) {
+        fun bind(item: Stories?) {
             binding.apply {
                 imgUser.loadImageUrl(item?.photoUrl ?: "")
+                imgUser.transitionName = item?.photoUrl
                 tvName.text = item?.name
+                tvName.transitionName = item?.name
 
                 itemView.setOnClickListener {
-                    onItemClickCallback.onItemClicked(item, imgUser, tvName)
+                    onItemClickCallback.onItemClicked(item, imgUser)
                 }
             }
         }
@@ -48,18 +49,17 @@ class HomePagingAdapter @Inject constructor() :
 
     interface OnItemClickCallback {
         fun onItemClicked(
-            item: ListStory?,
-            imageView: ImageView,
-            textView: TextView
+            item: Stories?,
+            imageView: ImageView
         )
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListStory>() {
-            override fun areItemsTheSame(oldItem: ListStory, newItem: ListStory): Boolean =
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Stories>() {
+            override fun areItemsTheSame(oldItem: Stories, newItem: Stories): Boolean =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: ListStory, newItem: ListStory): Boolean =
+            override fun areContentsTheSame(oldItem: Stories, newItem: Stories): Boolean =
                 oldItem == newItem
         }
     }

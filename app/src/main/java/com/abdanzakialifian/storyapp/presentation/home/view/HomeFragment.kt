@@ -1,7 +1,6 @@
 package com.abdanzakialifian.storyapp.presentation.home.view
 
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -11,9 +10,10 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.abdanzakialifian.storyapp.databinding.FragmentHomeBinding
-import com.abdanzakialifian.storyapp.domain.model.ListStory
+import com.abdanzakialifian.storyapp.domain.model.Stories
 import com.abdanzakialifian.storyapp.presentation.base.BaseVBFragment
 import com.abdanzakialifian.storyapp.presentation.home.adapter.HomePagingAdapter
+import com.abdanzakialifian.storyapp.presentation.home.adapter.LoadingStateAdapter
 import com.abdanzakialifian.storyapp.presentation.home.viewmodel.HomeViewModel
 import com.abdanzakialifian.storyapp.utils.Status
 import com.abdanzakialifian.storyapp.utils.gone
@@ -30,13 +30,19 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>(), SwipeRefreshLayout.O
 
     override fun getViewBinding(): FragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater)
 
-    override fun initView() {
+    override fun setupView() {
         setListStory()
         setUserSession()
+
         binding.imgProfile.setOnClickListener {
             val actionToProfileFragment =
                 HomeFragmentDirections.actionHomeFragmentToProfileFragment()
             findNavController().navigate(actionToProfileFragment)
+        }
+
+        binding.imgMapMarker.setOnClickListener {
+            val actionToMapsFragment = HomeFragmentDirections.actionHomeFragmentToMapsFragment()
+            findNavController().navigate(actionToMapsFragment)
         }
 
         binding.fabAdd.setOnClickListener {
@@ -46,14 +52,17 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>(), SwipeRefreshLayout.O
 
         // give item click
         homePagingAdapter.setOnItemClickCallback(object : HomePagingAdapter.OnItemClickCallback {
-            override fun onItemClicked(item: ListStory?, imageView: ImageView, textView: TextView) {
+            override fun onItemClicked(item: Stories?, imageView: ImageView) {
                 // shared element in navigation component
                 val extras = FragmentNavigatorExtras(
-                    Pair(imageView, "detail_image"),
-                    Pair(textView, "detail_name")
+                    Pair(imageView, item?.photoUrl ?: "")
                 )
                 val actionToDetailFragment =
-                    HomeFragmentDirections.actionHomeFragmentToDetailFragment(item as ListStory)
+                    HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+                        item?.photoUrl ?: "",
+                        item?.name ?: "",
+                        item?.description ?: ""
+                    )
                 findNavController().navigate(actionToDetailFragment, extras)
             }
         })
@@ -78,6 +87,11 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>(), SwipeRefreshLayout.O
 
     private fun setListStory() {
         binding.apply {
+            postponeEnterTransition()
+            rvStory.viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
             lifecycleScope.launchWhenStarted {
                 viewModel.uiStateGetAllStories
                     .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
@@ -95,7 +109,11 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>(), SwipeRefreshLayout.O
                                     shimmerLayout.gone()
                                     shimmerLayout.stopShimmer()
                                     if (it.data != null) {
-                                        rvStory.adapter = homePagingAdapter
+                                        rvStory.adapter = homePagingAdapter.withLoadStateFooter(
+                                            footer = LoadingStateAdapter {
+                                                homePagingAdapter.retry()
+                                            }
+                                        )
                                         rvStory.setHasFixedSize(true)
                                         rvStory.visible()
                                         homePagingAdapter.submitData(lifecycle, it.data)

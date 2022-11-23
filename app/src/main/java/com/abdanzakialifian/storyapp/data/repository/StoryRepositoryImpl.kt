@@ -4,10 +4,10 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import com.abdanzakialifian.storyapp.data.source.remote.source.RemoteDataSource
 import com.abdanzakialifian.storyapp.domain.interfaces.StoryRepository
-import com.abdanzakialifian.storyapp.domain.model.ListStory
 import com.abdanzakialifian.storyapp.domain.model.Login
 import com.abdanzakialifian.storyapp.domain.model.NewStory
 import com.abdanzakialifian.storyapp.domain.model.Registration
+import com.abdanzakialifian.storyapp.domain.model.Stories
 import com.abdanzakialifian.storyapp.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -31,7 +31,7 @@ class StoryRepositoryImpl @Inject constructor(private val remoteDataSource: Remo
                 DataMapper.mapLoginResponseToLogin(data)
             }
 
-    override fun getAllStories(token: String): Flow<PagingData<ListStory>> =
+    override fun getAllStories(token: String): Flow<PagingData<Stories>> =
         remoteDataSource.getAllStories(token).map {
             it.map { data ->
                 DataMapper.mapListStoryResponseToListStory(data)
@@ -45,4 +45,9 @@ class StoryRepositoryImpl @Inject constructor(private val remoteDataSource: Remo
     ): Flow<NewStory> = remoteDataSource.createNewStory(token, file, description).map { data ->
         DataMapper.mapNewStoryResponseToNewStory(data)
     }
+
+    override fun getLocation(token: String, location: Int): Flow<List<Stories>> =
+        remoteDataSource.getLocation(token, location).map { data ->
+            DataMapper.mapStoryResponseToListStory(data)
+        }
 }

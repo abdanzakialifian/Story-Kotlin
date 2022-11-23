@@ -2,10 +2,9 @@ package com.abdanzakialifian.storyapp.utils
 
 import android.content.Context
 import android.graphics.Canvas
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -43,16 +42,10 @@ class CustomEditText : TextInputLayout {
         editText.layoutParams = layoutParams
         addView(editText)
 
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (editText.text?.isNotEmpty() == true || editText.text?.isEmpty() == true) isErrorEnabled =
-                    false
-            }
-
-            override fun afterTextChanged(s: Editable?) {}
-        })
+        editText.doOnTextChanged { _, _, _, _ ->
+            if (editText.text?.isNotEmpty() == true || editText.text?.isEmpty() == true) isErrorEnabled =
+                false
+        }
     }
 
     override fun onDraw(canvas: Canvas?) {

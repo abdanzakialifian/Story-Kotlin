@@ -29,4 +29,10 @@ interface ApiService {
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody
     ): NewStoryResponse
+
+    @GET("stories")
+    suspend fun getLocation(
+        @Header("Authorization") token: String,
+        @Query("location") location: Int
+    ): StoriesResponse
 }
