@@ -86,6 +86,16 @@ class HomeFragment : BaseVBFragment<FragmentHomeBinding>(), SwipeRefreshLayout.O
     }
 
     private fun setListStory() {
+        viewModel.getToken()
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.getToken
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { token ->
+                    viewModel.getAllStories(token)
+                }
+        }
+
         binding.apply {
             postponeEnterTransition()
             rvStory.viewTreeObserver.addOnPreDrawListener {

@@ -10,6 +10,8 @@
         <entry key="..\:/Latihan Android Kotlin/Android Intermediate/StoryApp/app/src/main/res/drawable/background_image.xml" value="0.1955" />
         <entry key="..\:/Latihan Android Kotlin/Android Intermediate/StoryApp/app/src/main/res/drawable/background_image_rounded.xml" value="0.1955" />
         <entry key="..\:/Latihan Android Kotlin/Android Intermediate/StoryApp/app/src/main/res/drawable/background_opacity.xml" value="0.1955" />
+        <entry key="..\:/Latihan Android Kotlin/Android Intermediate/StoryApp/app/src/main/res/drawable/background_rounded.xml" value="0.2155" />
+        <entry key="..\:/Latihan Android Kotlin/Android Intermediate/StoryApp/app/src/main/res/drawable/background_white_rounded.xml" value="0.2145" />
         <entry key="..\:/Latihan Android Kotlin/Android Intermediate/StoryApp/app/src/main/res/drawable/bg_edittext_error.xml" value="0.146" />
         <entry key="..\:/Latihan Android Kotlin/Android Intermediate/StoryApp/app/src/main/res/drawable/bg_edittext_success.xml" value="0.146" />
         <entry key="..\:/Latihan Android Kotlin/Android Intermediate/StoryApp/app/src/main/res/drawable/ic_add.xml" value="0.1955" />
@@ -24,6 +26,7 @@
         <entry key="..\:/Latihan Android Kotlin/Android Intermediate/StoryApp/app/src/main/res/layout/custom_alert_dialog_success_upload.xml" value="0.203125" />
         <entry key="..\:/Latihan Android Kotlin/Android Intermediate/StoryApp/app/src/main/res/layout/fragment_camera.xml" value="0.2" />
         <entry key="..\:/Latihan Android Kotlin/Android Intermediate/StoryApp/app/src/main/res/layout/fragment_detail.xml" value="0.2" />
+        <entry key="..\:/Latihan Android Kotlin/Android Intermediate/StoryApp/app/src/main/res/layout/fragment_detail_maps.xml" value="0.264" />
         <entry key="..\:/Latihan Android Kotlin/Android Intermediate/StoryApp/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Latihan Android Kotlin/Android Intermediate/StoryApp/app/src/main/res/layout/fragment_login.xml" value="0.176" />
         <entry key="..\:/Latihan Android Kotlin/Android Intermediate/StoryApp/app/src/main/res/layout/fragment_maps.xml" value="0.20416666666666666" />

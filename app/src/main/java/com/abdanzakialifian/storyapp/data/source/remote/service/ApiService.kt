@@ -27,7 +27,9 @@ interface ApiService {
     suspend fun createNewStory(
         @Header("Authorization") token: String,
         @Part file: MultipartBody.Part,
-        @Part("description") description: RequestBody
+        @Part("description") description: RequestBody,
+        @Part("lat") latitude: RequestBody?,
+        @Part("lon") longitude: RequestBody?
     ): NewStoryResponse
 
     @GET("stories")

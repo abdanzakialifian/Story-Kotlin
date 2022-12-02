@@ -17,7 +17,6 @@ import com.abdanzakialifian.storyapp.presentation.profile.viewmodel.ProfileViewM
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
-
 @AndroidEntryPoint
 class ProfileFragment : BaseVBFragment<FragmentProfileBinding>() {
 
@@ -27,6 +26,8 @@ class ProfileFragment : BaseVBFragment<FragmentProfileBinding>() {
         FragmentProfileBinding.inflate(layoutInflater)
 
     override fun setupView() {
+        viewModel.getDataStoreName()
+        viewModel.getLanguageCode()
 
         lifecycleScope.launchWhenStarted {
             viewModel.languageCode

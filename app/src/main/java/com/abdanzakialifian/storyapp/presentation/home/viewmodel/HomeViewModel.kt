@@ -3,51 +3,46 @@ package com.abdanzakialifian.storyapp.presentation.home.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.abdanzakialifian.storyapp.data.source.local.datastore.StoryDataStore
 import com.abdanzakialifian.storyapp.domain.interfaces.StoryUseCase
 import com.abdanzakialifian.storyapp.domain.model.Stories
 import com.abdanzakialifian.storyapp.utils.Result
+import com.abdanzakialifian.storyapp.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    private val storyUseCase: StoryUseCase,
-    private val storyDataStore: StoryDataStore
-) : ViewModel() {
+class HomeViewModel @Inject constructor(private val storyUseCase: StoryUseCase) : ViewModel() {
+    private val _getToken = MutableStateFlow("")
+    val getToken: StateFlow<String> = _getToken
 
     private val _uiStateGetAllStories =
         MutableStateFlow<Result<PagingData<Stories>>>(Result.loading())
     val uiStateGetAllStories: StateFlow<Result<PagingData<Stories>>> = _uiStateGetAllStories
 
-    init {
-        getToken()
-    }
-
     // get token from datastore
-    private fun getToken() {
+    fun getToken() {
         viewModelScope.launch {
-            storyDataStore.getToken().collect { token ->
-                getAllStories(token)
+            // get token from datastore
+            storyUseCase.getToken().collect { token ->
+                _getToken.value = token
             }
         }
     }
 
-    private fun getAllStories(token: String) {
+    fun getAllStories(token: String) {
         _uiStateGetAllStories.value = Result.loading()
         viewModelScope.launch {
             storyUseCase.getAllStories("Bearer $token")
-                .cachedIn(viewModelScope)
-                .catch { throwable ->
-                    _uiStateGetAllStories.value = Result.error(throwable.message.toString())
-                }
-                .collect { data ->
-                    _uiStateGetAllStories.value = Result.success(data)
+                .collect {
+                    when (it.status) {
+                        Status.LOADING -> _uiStateGetAllStories.value = Result.loading()
+                        Status.SUCCESS -> _uiStateGetAllStories.value = Result.success(it.data)
+                        Status.ERROR -> _uiStateGetAllStories.value =
+                            Result.error(it.message.toString())
+                    }
                 }
         }
     }
@@ -55,7 +50,7 @@ class HomeViewModel @Inject constructor(
     // save user session in datastore
     fun saveUserSession(isLogin: Boolean) {
         viewModelScope.launch {
-            storyDataStore.saveUserSession(isLogin)
+            storyUseCase.saveUserSession(isLogin)
         }
     }
 }

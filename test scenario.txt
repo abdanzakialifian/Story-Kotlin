@@ -1,0 +1,81 @@
+--Registration ViewModel--
+
+Berhasil Registrasi
+ - Memastikan mengembalikan hasil sukses
+ - Memastikan response tidak error
+ - Memastikan pesan yang didapatkan sesuai (User created)
+Gagal Registrasi
+ - Memastikan mengembalikan hasil error
+ - Memastikan pesan error yang didapatkan sesuai
+
+--Login ViewModel--
+ 
+Berhasil Login
+ - Memastikan data yang dikembalikan sesuai
+ - Memastikan data tidak kosong
+ - Memastikan mengembalikan hasil sukses
+ - Memastikan response tidak error
+Gagal Login
+ - Memastikan mengembalikan hasil error
+ - Memastikan pesan yang didapatkan sesuai (must be a valid email)
+Menyimpan Data User
+ - Memastikan fungsi save user data terpanggil 
+
+--Splash Screen ViewModel--
+
+Memeriksa User Session Login
+ - Memastikan data tidak kosong
+ - Memastikan data bernilai true (sudah login)
+Memeriksa User Session Belum Login
+ - Memastikan data tidak kosong
+ - Memastikan data bernilai false (belum login)
+Memerika Bahasa (Indonesia)
+ - Memastikan data tidak kosong
+ - Memastikan data yang didapatkan sesuai (language code "id" atau Indonesia)
+Memeriksa Bahasa (Inggris)
+ - Memastikan data tidak kosong
+ - Memastikan data yang didapatkan sesuai (language code "en" atau English)
+
+--Profile ViewModel--
+
+Menghapus DataStore
+ - Memastikan fungsi delete data store terpanggil
+Mendapatkan Data Nama Dari DataStore
+ - Memastikan data tidak kosong
+ - Memastikan data yang didapatkan sudah sesuai
+Menyimpan Kode Bahasa
+ - Memastikan fungsi save language code terpanggil
+Memerika Bahasa (Indonesia)
+ - Memastikan data tidak kosong
+ - Memastikan data yang didapatkan sesuai (language code "id" atau Indonesia)
+Memeriksa Bahasa (Inggris)
+ - Memastikan data tidak kosong
+ - Memastikan data yang didapatkan sesuai (language code "en" atau English)
+
+--Upload ViewModel--
+
+Mendapatkan Token Dari DataStore
+ - Memastikan data tidak kosong
+ - Memastikan data yang didapatkan sesuai
+Berhasil Upload Story
+ - Memastikan data tidak kosong
+ - Memastikan data yang didapatkan sesuai
+ - Memastikan mengembalikan hasil sukses
+ - Memastikan response tidak error
+Gagal Upload Story
+ - Memastikan mengembalikan hasil error
+ = Memastikan data yang didapatkan sesuai
+
+--Home ViewModel--
+
+Mendapatkan Token Dari DataStore
+ - Memastikan data tidak kosong
+ - Memastikan data yang didapatkan sesuai
+Berhasil Mendapatkan List Stories
+ - Memastikan data tidak kosong
+ - Memastikan data yang didapatkan sesuai
+ - Memastikan jumlah data yang didapatkan sesuai
+ - Memastikan nama yang didapatkan sesuai
+Testing Remote Mediator
+ - Memastikan fungsi load mengembalikan RemoteMediator.MediatorResult.Success.
+ - Memastikan jumlah endOfPaginationReached bernilai false.

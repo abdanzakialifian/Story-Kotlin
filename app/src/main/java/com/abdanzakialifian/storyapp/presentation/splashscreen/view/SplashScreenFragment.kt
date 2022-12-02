@@ -25,9 +25,12 @@ class SplashScreenFragment : BaseVBFragment<FragmentSplashScreenBinding>() {
         FragmentSplashScreenBinding.inflate(layoutInflater)
 
     override fun setupView() {
+        viewModel.getUserSession()
+        viewModel.getLanguageCode()
+
         Handler(Looper.getMainLooper()).postDelayed({
             lifecycleScope.launchWhenStarted {
-                viewModel.getUserSession()
+                viewModel.getUserSession
                     .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                     .collect { isLogin ->
                         if (isLogin) {
@@ -44,7 +47,7 @@ class SplashScreenFragment : BaseVBFragment<FragmentSplashScreenBinding>() {
         }, DELAY_SPLASH_SCREEN)
 
         lifecycleScope.launchWhenStarted {
-            viewModel.getLanguageCode()
+            viewModel.getLanguageCode
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect { data ->
                     setLocaleLanguage(data)

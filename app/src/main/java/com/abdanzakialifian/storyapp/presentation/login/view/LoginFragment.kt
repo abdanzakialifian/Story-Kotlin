@@ -124,7 +124,7 @@ class LoginFragment : BaseVBFragment<FragmentLoginBinding>() {
         // email validate
         private val EMAIL_ADDRESS_PATTERN =
             Pattern.compile("[a-zA-Z0-9+._%\\-]{1,256}" + "@" + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" + "(" + "\\." + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" + ")+")
-        private const val EMAIL = "email"
-        private const val PASSWORD = "password"
+        const val EMAIL = "email"
+        const val PASSWORD = "password"
     }
 }

@@ -55,11 +55,17 @@ class HomePagingAdapter @Inject constructor() :
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Stories>() {
-            override fun areItemsTheSame(oldItem: Stories, newItem: Stories): Boolean =
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Stories>() {
+            override fun areItemsTheSame(
+                oldItem: Stories,
+                newItem: Stories
+            ): Boolean =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: Stories, newItem: Stories): Boolean =
+            override fun areContentsTheSame(
+                oldItem: Stories,
+                newItem: Stories
+            ): Boolean =
                 oldItem == newItem
         }
     }

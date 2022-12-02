@@ -103,6 +103,9 @@
         <action
             android:id="@+id/action_uploadFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_uploadFragment_to_detailMapsFragment"
+            app:destination="@id/detailMapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -121,4 +124,9 @@
         android:name="com.abdanzakialifian.storyapp.presentation.maps.view.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" />
+    <fragment
+        android:id="@+id/detailMapsFragment"
+        android:name="com.abdanzakialifian.storyapp.presentation.maps.view.DetailMapsFragment"
+        android:label="fragment_detail_maps"
+        tools:layout="@layout/fragment_detail_maps" />
 </navigation>

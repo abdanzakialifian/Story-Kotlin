@@ -2,7 +2,7 @@ package com.abdanzakialifian.storyapp.presentation.profile.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.abdanzakialifian.storyapp.data.source.local.datastore.StoryDataStore
+import com.abdanzakialifian.storyapp.domain.interfaces.StoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -10,30 +10,24 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val storyDataStore: StoryDataStore) :
-    ViewModel() {
+class ProfileViewModel @Inject constructor(private val storyUseCase: StoryUseCase) : ViewModel() {
 
-    private val _userName = MutableStateFlow(toString())
+    private val _userName = MutableStateFlow("")
     val userName: StateFlow<String> = _userName
 
-    private val _languageCode = MutableStateFlow(toString())
+    private val _languageCode = MutableStateFlow("")
     val languageCode: StateFlow<String> = _languageCode
-
-    init {
-        getDataStoreName()
-        getLanguageCode()
-    }
 
     // delete datastore
     fun deleteDataStore() {
         viewModelScope.launch {
-            storyDataStore.deleteDataStore()
+            storyUseCase.deleteDataStore()
         }
     }
 
-    private fun getDataStoreName() {
+    fun getDataStoreName() {
         viewModelScope.launch {
-            storyDataStore.getName()
+            storyUseCase.getName()
                 .collect { data ->
                     _userName.value = data
                 }
@@ -42,13 +36,13 @@ class ProfileViewModel @Inject constructor(private val storyDataStore: StoryData
 
     fun saveLanguageCode(languageCode: String) {
         viewModelScope.launch {
-            storyDataStore.saveLanguageCode(languageCode)
+            storyUseCase.saveLanguageCode(languageCode)
         }
     }
 
-    private fun getLanguageCode() {
+    fun getLanguageCode() {
         viewModelScope.launch {
-            storyDataStore.getLanguageCode()
+            storyUseCase.getLanguageCode()
                 .collect { data ->
                     _languageCode.value = data
                 }

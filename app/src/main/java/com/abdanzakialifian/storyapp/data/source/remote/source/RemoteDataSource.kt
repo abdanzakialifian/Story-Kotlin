@@ -1,10 +1,9 @@
 package com.abdanzakialifian.storyapp.data.source.remote.source
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import com.abdanzakialifian.storyapp.data.source.remote.model.*
-import com.abdanzakialifian.storyapp.data.source.remote.paging.StoriesPagingSource
+import com.abdanzakialifian.storyapp.data.source.remote.model.LoginResponse
+import com.abdanzakialifian.storyapp.data.source.remote.model.NewStoryResponse
+import com.abdanzakialifian.storyapp.data.source.remote.model.RegistrationResponse
+import com.abdanzakialifian.storyapp.data.source.remote.model.StoriesResponse
 import com.abdanzakialifian.storyapp.data.source.remote.service.ApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +17,6 @@ import javax.inject.Singleton
 @Singleton
 class RemoteDataSource @Inject constructor(
     private val apiService: ApiService,
-    private val storiesPagingSource: StoriesPagingSource
 ) {
     fun registrationUser(requestBody: RequestBody): Flow<RegistrationResponse> = flow {
         val response = apiService.registrationUser(requestBody)
@@ -30,27 +28,15 @@ class RemoteDataSource @Inject constructor(
         emit(response)
     }.flowOn(Dispatchers.IO)
 
-    fun getAllStories(token: String): Flow<PagingData<ListStoryResponse>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = 10,
-                enablePlaceholders = true,
-                initialLoadSize = 10
-            ),
-            pagingSourceFactory = {
-                storiesPagingSource.getToken(token)
-                storiesPagingSource
-            }
-        ).flow.flowOn(Dispatchers.IO)
-    }
-
     fun createNewStory(
         token: String,
         file: MultipartBody.Part,
-        description: RequestBody
+        description: RequestBody,
+        latitude: RequestBody?,
+        longitude: RequestBody?
     ): Flow<NewStoryResponse> =
         flow {
-            val response = apiService.createNewStory(token, file, description)
+            val response = apiService.createNewStory(token, file, description, latitude, longitude)
             emit(response)
         }.flowOn(Dispatchers.IO)
 
